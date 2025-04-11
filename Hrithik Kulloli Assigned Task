@@ -1,0 +1,122 @@
+TASK 1 =
+Find the Missing Number in an Array
+A list contains n distinct numbers taken from 0, 1, 2, ..., n, but one number is
+missing.
+Write a function to find the missing number.
+def find_missing_number(arr: list) -> int:
+pass
+Example:
+arr = [3, 0, 1]
+print(find_missing_number(arr)) Output: 2
+
+
+ TASK-1 SOLUTION =
+To find the missing number in an array where the numbers are distinct and taken from the range \(0\) to \(n\) (with one number missing), we can use a mathematical approach involving the sum of numbers.
+Here is how you can implement the `find_missing_number` function:
+def find_missing_number(arr: list) -> int:
+    n = len(arr)  # n is the count of numbers present in the array
+    expected_sum = n * (n + 1) // 2  # Sum of first n natural numbers
+    actual_sum = sum(arr)  # Sum of the numbers present in the array
+    missing_number = expected_sum - actual_sum  # The difference is the missing number
+    return missing_number
+# Example usage:
+arr = [3, 0, 1]
+print(find_missing_number(arr))  # Output: 2
+Explanation of the Code:
+
+
+Determine n: The length of the array arr gives us n, which is the total number of distinct numbers that should include the missing number.
+
+Calculate the expected_sum: The formula for the sum of the first n natural numbers is ( \frac{n \times (n + 1)}{2} ).
+
+Calculate the actual_sum: By using Python's sum function, we compute the sum of the numbers in the array.
+
+Find the missing_number: The missing number is obtained by subtracting the actual_sum from the expected_sum.
+
+This solution operates in \(O(n)\) time complexity and uses \(O(1)\) space complexity, making it efficient for this problem.
+
+
+
+
+  TASK-2 =
+
+
+Find Kth Largest Element in an Array
+Given an unsorted list and an integer k, find the k-th largest element in the list.
+def find_kth_largest(nums: list, k: int) -> int:
+pass
+Example:
+nums = [3, 2, 1, 5, 6, 4]
+k = 2
+print(find_kth_largest(nums, k)) Output: 5
+
+
+SOLUTIONS=
+
+To find the k-th largest element in an unsorted array, you can utilize several approaches, including sorting the list and using a min-heap. Below, I'll provide two methods: the sorting approach and the min-heap approach.
+Approach 1: Sorting
+
+This approach involves sorting the array in descending order and then directly accessing the k-th largest element:
+
+Sort the array in descending order.
+
+Retrieve the element at index k-1 (since list indices start at 0).
+
+Here's how you can implement this:
+
+def find_kth_largest(nums: list, k: int) -> int:
+    # Sort the list in descending order
+    nums.sort(reverse=True)
+    # Return the k-th largest element
+    return nums[k-1]
+
+# Example Usage
+nums = [3, 2, 1, 5, 6, 4]
+k = 2
+print(find_kth_largest(nums, k))  # Output: 5
+
+Approach 2: Using a Min-Heap
+
+This approach uses a min-heap to efficiently track the top k elements:
+
+Use the heapq module, which provides an efficient way to manage a heap.
+
+Push the first k elements into the heap.
+
+For the remaining elements, if an element is larger than the smallest in the heap, replace the smallest.
+
+Finally, the top of the min-heap will be the k-th largest element.
+
+Here's the implementation using the min-heap approach:
+
+import heapq
+
+def find_kth_largest(nums: list, k: int) -> int:
+    # Create a min-heap with the first k elements
+    min_heap = nums[:k]
+    heapq.heapify(min_heap)
+    
+    # Process the rest of the numbers
+    for num in nums[k:]:
+        if num > min_heap[0]:  # If the current number is larger than the smallest in the heap
+            heapq.heappop(min_heap)  # Pop the smallest element
+            heapq.heappush(min_heap, num)  # Push the current number into the heap
+            
+    # The top of the heap is the k-th largest element
+    return min_heap[0]
+
+# Example Usage
+nums = [3, 2, 1, 5, 6, 4]
+k = 2
+print(find_kth_largest(nums, k))  # Output: 5
+
+
+Complexity Analysis
+
+
+Sorting approach: The time complexity is (O(n \log n)) due to the sort operation.
+
+Min-Heap approach: The time complexity is (O(n \log k)), which is more efficient for large (n) where (k) is relatively small.
+
+You can choose either method based on your requirements for efficiency and readability. The min-heap method is often preferred for larger datasets where \(k\) is significantly smaller than \(n\).
+
